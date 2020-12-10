@@ -1,6 +1,5 @@
 package com.newgen.hrm.controller;
 
-import com.newgen.hrm.common.Constants;
 import io.swagger.oas.annotations.parameters.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

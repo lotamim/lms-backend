@@ -5,9 +5,7 @@ package com.newgen.hrm.service;
   Author : Mehedi Hasan Tamim
  */
 
-import com.newgen.hrm.common.Constants;
 import com.newgen.hrm.model.ApplicationUser;
-import com.newgen.hrm.model.JwtResponse;
 import com.newgen.hrm.repository.ApplicationUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
