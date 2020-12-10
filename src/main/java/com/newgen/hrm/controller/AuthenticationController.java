@@ -40,18 +40,17 @@ public class AuthenticationController {
         final String token = jwtTokenUtil.generateToken(userDetails);
 //        Map<String,String> map = new HashMap<>();
         JSONObject map = new JSONObject();
-        map.put("username",userDetails.getUsername());
-        map.put("password",userDetails.getPassword());
-        map.put("token",token);
+        map.put("username", userDetails.getUsername());
+        map.put("password", userDetails.getPassword());
+        map.put("token", token);
 
 //        return ResponseEntity.ok(new JwtResponse(token));
         return new ResponseEntity<String>(map.toString(), HttpStatus.OK);
     }
 
     @PostMapping(Constants.SIGN_UP)
-    public ResponseEntity<?> saveUser(@RequestBody ApplicationUser applicationUser)  {
-        return  userDetailsService.save(applicationUser);
-//        return ResponseEntity.ok(userDetailsService.save(applicationUser));
+    public ResponseEntity<?> saveUser(@RequestBody ApplicationUser applicationUser) {
+        return userDetailsService.save(applicationUser);
     }
 
     private void authenticate(String username, String password) throws Exception {
