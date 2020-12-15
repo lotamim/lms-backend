@@ -5,17 +5,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Setter
 @Getter
 @NoArgsConstructor
+@Table(name = "user_role")
 @Entity
-@Table(name = "role")
-public class Role {
+public class UserRoleMap {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
-    private String name;
-    private String remarks;
+    private Long roleId;
+    private Long userId;
 }

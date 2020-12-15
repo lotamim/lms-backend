@@ -20,12 +20,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    private static final  String USER_NAME_EXIT = "Username already exits !";
-    private static final  String SUCCESS_MESSAGE = "Data Save Successfully !";
+    private static final String USER_NAME_EXIT = "Username already exits !";
+    private static final String SUCCESS_MESSAGE = "Data Save Successfully !";
 
     @Autowired
     private ApplicationUserRepository applicationUserRepository;
@@ -47,7 +49,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         try {
             ApplicationUser newUser = new ApplicationUser();
             int dupUsernameCheck = applicationUserRepository.duplicateCheck(user.getUsername());
-            if (dupUsernameCheck >=1) {
+            if (dupUsernameCheck >= 1) {
                 return new ResponseEntity<>(USER_NAME_EXIT, HttpStatus.CONFLICT);
             } else {
                 newUser.setUsername(user.getUsername());
@@ -58,6 +60,17 @@ public class CustomUserDetailsService implements UserDetailsService {
             }
         } catch (Exception ex) {
             throw new RuntimeException(ex.getMessage());
+        }
+    }
+
+    public Map<String, List<ApplicationUser>> getUserList() {
+        Map<String, List<ApplicationUser>> dMap = new HashMap<>();
+        try {
+            List<ApplicationUser> userList = applicationUserRepository.findAll();
+            dMap.put("userList", userList);
+            return dMap;
+        } catch (Exception ex) {
+            throw new RuntimeException();
         }
     }
 }

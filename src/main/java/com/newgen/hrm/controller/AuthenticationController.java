@@ -16,6 +16,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -61,5 +64,10 @@ public class AuthenticationController {
         } catch (BadCredentialsException e) {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
+    }
+
+    @GetMapping(value = "user/list")
+    public Map<String, List<ApplicationUser>> userList(){
+        return userDetailsService.getUserList();
     }
 }
