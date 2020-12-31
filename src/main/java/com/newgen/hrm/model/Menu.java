@@ -6,16 +6,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "role")
-public class Role extends Auditable<String> {
-    @GeneratedValue(strategy = GenerationType.AUTO)
+@Table(name = "Menu")
+public class Menu extends Auditable<String> implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name;
+    private String menuName;
     private String remarks;
+    private Long moduleId;
+
+
 }
