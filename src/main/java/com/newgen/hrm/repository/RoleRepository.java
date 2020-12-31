@@ -16,4 +16,6 @@ public interface RoleRepository extends JpaRepository<Role,Long> {
     @Query(value = "SELECT count(*) FROM role\n"
                    +"WHERE LOWER(name)=LOWER(:name) AND id NOT IN(:roleId)", nativeQuery = true)
     long findByNameAndIdNotEqual (@Param("name") String name, @Param("roleId")Long roleId);
+
+    Role findByName (String name);
 }

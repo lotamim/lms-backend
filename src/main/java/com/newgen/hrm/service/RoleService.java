@@ -70,7 +70,7 @@ public class RoleService {
             msgMap.put(UPDATE, "Role update successful !");
             return msgMap;
         } catch (Exception ex) {
-            msgMap.put("Error", ex.getMessage());
+            msgMap.put(ERROR, ex.getMessage());
             return msgMap;
         }
     }

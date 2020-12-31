@@ -6,16 +6,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "role")
-public class Role extends Auditable<String> {
+@Table(name = "resetPasswordHistory")
+public class ResetPasswordHistory extends Auditable<String> implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
-    private String name;
     private String remarks;
+    private Long applicationUserId;
 }

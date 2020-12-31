@@ -28,6 +28,7 @@ import java.util.Map;
 public class CustomUserDetailsService implements UserDetailsService {
     private static final String USER_NAME_EXIT = "Username already exits !";
     private static final String SUCCESS_MESSAGE = "Data Save Successfully !";
+    private static final String USER_LIST = "userList";
 
     @Autowired
     private ApplicationUserRepository applicationUserRepository;
@@ -67,7 +68,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         Map<String, List<ApplicationUser>> dMap = new HashMap<>();
         try {
             List<ApplicationUser> userList = applicationUserRepository.findAll();
-            dMap.put("userList", userList);
+            dMap.put(USER_LIST, userList);
             return dMap;
         } catch (Exception ex) {
             throw new RuntimeException();

@@ -1,5 +1,6 @@
 package com.newgen.hrm.model;
 
+import com.newgen.hrm.model.audit.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "user_role")
 @Entity
-public class UserRoleMap {
+public class UserRoleMap extends Auditable<String> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;

@@ -12,4 +12,5 @@ public class Constants {
     public static final String API ="/api";
     public static final String SUCCESS_MESSAGE = "Data Save Successfully !";
     public static final String UPDATE_MESSAGE = "Data update Successfully !";
+    public static final String FILE_PATH  = "uploadFiles/";
 }
