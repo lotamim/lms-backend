@@ -35,7 +35,9 @@ public class OrganizationService {
             organization.setAddress(dMap.get("address"));
             organization.setPhoneNumber(dMap.get("extnumber"));
             organization.setRemarks(dMap.get("remarks"));
-            organization.setOrganizationLogo(UploadUtils.uniqueCodeGeneratorForFile(file.getOriginalFilename()));
+            if (file != null) {
+                organization.setOrganizationLogo(UploadUtils.uniqueCodeGeneratorForFile(file.getOriginalFilename()));
+            }
             organizationRepository.save(organization);
             if (organization.getId() != null && organization.getOrganizationLogo() != null) {
                 UploadUtils.upload(file, organization.getOrganizationLogo());
@@ -63,14 +65,15 @@ public class OrganizationService {
     }
 
     public Map select(Map<String, String> dMap) {
-        Map<String, String> msgMap = new HashMap<>();
+        Map<String, Organization> msgMap = new HashMap<>();
         try {
             Organization organization = organizationRepository.findById(Long.parseLong(dMap.get("orgId"))).get();
             String uri = MvcUriComponentsBuilder
                     .fromMethodName(FileDownLoadController.class, "fileDownload",
                             Paths.get(Paths.get(Constants.FILE_PATH) + "/" + organization.getOrganizationLogo()).getFileName().toString())
                     .build().toString();
-            msgMap.put("organization", uri);
+            organization.setOrganizationLogo(uri);
+            msgMap.put("organization", organization);
             return msgMap;
         } catch (Exception ex) {
             return msgMap;
