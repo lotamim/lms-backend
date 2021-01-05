@@ -43,7 +43,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
-        return new User(user.getUsername(), user.getPassword(), authorites);
+        return new User(user.getUsername(), user.getPassword(),user.isEnabled(),user.isAccountNonLocked(),
+                user.isAccountNonLocked(),user.isCredentialsNonExpired(),authorites);
     }
 
     public ResponseEntity<?> save(ApplicationUser user) {
