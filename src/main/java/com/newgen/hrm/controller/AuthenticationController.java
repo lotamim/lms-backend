@@ -52,7 +52,7 @@ public class AuthenticationController {
     }
 
     @PostMapping(Constants.SIGN_UP)
-    public ResponseEntity<?> saveUser(@RequestBody ApplicationUser applicationUser) {
+    public Map<String,String> saveUser(@RequestBody ApplicationUser applicationUser) {
         return userDetailsService.save(applicationUser);
     }
 
