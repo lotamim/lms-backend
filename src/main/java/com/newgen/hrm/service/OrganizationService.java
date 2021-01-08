@@ -3,7 +3,7 @@ package com.newgen.hrm.service;
 
 import com.newgen.hrm.common.Constants;
 import com.newgen.hrm.common.FileDownLoadController;
-import com.newgen.hrm.common.UploadUtils;
+import com.newgen.hrm.common.UtilClz;
 import com.newgen.hrm.model.Organization;
 import com.newgen.hrm.repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +36,11 @@ public class OrganizationService {
             organization.setPhoneNumber(dMap.get("extnumber"));
             organization.setRemarks(dMap.get("remarks"));
             if (file != null) {
-                organization.setOrganizationLogo(UploadUtils.uniqueCodeGeneratorForFile(file.getOriginalFilename()));
+                organization.setOrganizationLogo(UtilClz.uniqueCodeGeneratorForFile(file.getOriginalFilename()));
             }
             organizationRepository.save(organization);
             if (organization.getId() != null && organization.getOrganizationLogo() != null) {
-                UploadUtils.upload(file, organization.getOrganizationLogo());
+                UtilClz.upload(file, organization.getOrganizationLogo());
             }
             msgMap.put(SUCCESS, "Organization save successful !");
             return msgMap;

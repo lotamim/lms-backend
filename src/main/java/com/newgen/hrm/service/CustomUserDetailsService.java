@@ -8,8 +8,6 @@ package com.newgen.hrm.service;
 import com.newgen.hrm.model.ApplicationUser;
 import com.newgen.hrm.repository.ApplicationUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -26,9 +24,9 @@ import java.util.Map;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    private static final String USER_NAME_EXIT = "Username already exits !";
-    private static final String SUCCESS_MESSAGE = "Data Save Successfully !";
+    private static final String SUCCESS_MESSAGE = "success";
     private static final String USER_LIST = "userList";
+    private static final String USER_EXIT = "userExit";
 
     @Autowired
     private ApplicationUserRepository applicationUserRepository;
@@ -47,22 +45,26 @@ public class CustomUserDetailsService implements UserDetailsService {
                 user.isAccountNonLocked(),user.isCredentialsNonExpired(),authorites);
     }
 
-    public ResponseEntity<?> save(ApplicationUser user) {
+    public Map<String,String> save(ApplicationUser user) {
+        Map<String,String> msgMap = new HashMap<>();
         try {
-            ApplicationUser newUser = new ApplicationUser();
+            ApplicationUser applicationUser = new ApplicationUser();
             int dupUsernameCheck = applicationUserRepository.duplicateCheck(user.getUsername());
             if (dupUsernameCheck >= 1) {
-                return new ResponseEntity<>(USER_NAME_EXIT, HttpStatus.CONFLICT);
+                 msgMap.put(USER_EXIT,user.getUsername() + " " + "already exits");
             } else {
-                newUser.setUsername(user.getUsername());
-                newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-                newUser.setEmail(user.getEmail());
-                applicationUserRepository.save(newUser);
-                return new ResponseEntity<>(SUCCESS_MESSAGE, HttpStatus.OK);
+                applicationUser.setUsername(user.getUsername());
+                applicationUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+                applicationUser.setEmail(user.getEmail());
+                applicationUserRepository.save(applicationUser);
+                msgMap.put(SUCCESS_MESSAGE,"Data Save Successfully");
+                return  msgMap;
             }
         } catch (Exception ex) {
-            throw new RuntimeException(ex.getMessage());
+            msgMap.put("error",ex.getMessage());
+            return msgMap;
         }
+        return  msgMap;
     }
 
     public Map<String, List<ApplicationUser>> getUserList() {

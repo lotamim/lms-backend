@@ -27,6 +27,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableScheduling
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

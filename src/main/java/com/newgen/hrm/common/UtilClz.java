@@ -1,5 +1,6 @@
 /*
   Author : Mehedi Hasan Tamim;
+  Time : 28/12/2020 11:20 PM
 */
 package com.newgen.hrm.common;
 
@@ -15,7 +16,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.Random;
 
 @Component
-public class UploadUtils {
+public class UtilClz {
 
     public static void upload(MultipartFile file, String fileName) throws IOException {
         Path uploadPath = Paths.get(Constants.FILE_PATH);
