@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="role_List" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="81009a31-11e5-494b-9ef1-14c9122bcc33">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="remarks" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="350" y="20" width="100" height="30" uuid="994c24ff-ec2b-4ffe-b13e-c6be045791e2"/>
+				<text><![CDATA[CARS LIST REPORT]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="180" height="30" uuid="a51d6f53-1dee-446c-9280-379a48fe59fc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0f7074bb-e6ea-4350-9425-56f9e3a6f312"/>
+				</reportElement>
+				<box leftPadding="1">
+					<topPen lineWidth="1.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="1.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="1.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="300" height="30" uuid="e6381015-0c93-4f72-a773-c36552a60774">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c82bbbb-42cb-4145-96c7-9d48eeb11b04"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="1.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="1.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="0" width="300" height="30" uuid="1c1e19fe-1858-4370-a2d2-4ad80d341f03">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c909bed0-2df7-49db-96dc-de22500c0504"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="1.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="1.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Remarks]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="29" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="-1" width="180" height="30" uuid="50086445-28ca-4584-a555-af137b7cb66d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0f7074bb-e6ea-4350-9425-56f9e3a6f312"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="1.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="1.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="180" y="-1" width="300" height="30" uuid="522d9e56-1c60-49f7-b259-62e6eb3f4551">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c82bbbb-42cb-4145-96c7-9d48eeb11b04"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="1.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="1.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="480" y="-1" width="300" height="30" uuid="3cd56c4b-9462-4d4f-8bc5-56e89cacb1c3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c909bed0-2df7-49db-96dc-de22500c0504"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="1.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="1.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{remarks}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
