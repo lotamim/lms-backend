@@ -1,5 +1,6 @@
 package com.newgen.hrm.controller;
 
+import com.newgen.hrm.common.JasperReportsService;
 import com.newgen.hrm.model.Role;
 import com.newgen.hrm.repository.RoleRepository;
 import net.sf.jasperreports.engine.*;
@@ -7,13 +8,17 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -31,30 +36,23 @@ public class ReportController {
     ApplicationContext context;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private JasperReportsService jasperReportsService;
 
     @GetMapping(path = "/pdf")
-    @ResponseBody
-    public void getPdf(HttpServletResponse response) throws Exception {
-        //Get JRXML template from resources folder
-//        Resource resource = context.getResource("classpath:reports/" + jrxml + ".jrxml");
-        Resource resource = context.getResource("classpath:reports/role_List.jrxml");
-        //Compile to jasperReport
-        InputStream inputStream = resource.getInputStream();
-        JasperReport report = JasperCompileManager.compileReport(inputStream);
-        //Parameters Set
+    public ResponseEntity<byte[]> getPdf() throws IOException, JRException {
+        String username = "Mehedi Hasan Tamim";
+        String reportName = "roleReport";
+        List<Role> roles =  roleRepository.findAll();
+        JRDataSource dataSource = new JRBeanCollectionDataSource(roles);
         Map<String, Object> params = new HashMap<>();
 
-        List<Role> roles = (List<Role>) roleRepository.findAll();
-
-        //Data source Set
-        JRDataSource dataSource = new JRBeanCollectionDataSource(roles);
-        params.put("datasource", dataSource);
-
-        //Make jasperPrint
-        JasperPrint jasperPrint = JasperFillManager.fillReport(report, params, dataSource);
-        //Media Type
-        response.setContentType(MediaType.APPLICATION_PDF_VALUE);
-        //Export PDF Stream
-        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+        params.put("userName", username);
+        byte[] bytes = jasperReportsService.generatePDFReport("roleReport", params, dataSource);
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.valueOf(MediaType.APPLICATION_PDF_VALUE))
+                .body(bytes);
     }
+
 }
