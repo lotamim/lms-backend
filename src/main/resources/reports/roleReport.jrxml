@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="roleReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="937927ab-e34a-4e15-83e1-2fcc2e4ca3ce">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="NO_DATA_ADAPTER"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="userName" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="role"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="role"/>
+	</field>
+	<field name="remarks" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="remarks"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="role"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="230" y="30" width="100" height="30" uuid="c37d987a-36da-4c4d-a916-5412e1cf3b27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Role Report]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="380" y="30" width="174" height="30" uuid="cc900685-4169-407f-bf5d-0ae0df6e1c73">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{userName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="146" height="30" uuid="a58988d9-75e3-4e93-8734-c2c2ddbc6fac">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4da1315-af3c-47f8-935a-a5f766377f2c"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="146" y="0" width="234" height="30" uuid="94cb2760-5e28-4c7d-8409-6a68c850b249">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e56ff7ff-7113-404f-87db-a40b3600bcfe"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="174" height="30" uuid="0555a23b-b76c-46f6-a34a-1f85920fd122">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5af5216b-cabb-48a0-afcd-f3ba190a072f"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[remarks]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="146" height="30" uuid="46928c63-5303-41b5-b020-0219a7fc2dea">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4da1315-af3c-47f8-935a-a5f766377f2c"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="146" y="0" width="234" height="30" uuid="4704b4a5-1058-4114-9939-4787282dd7c1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e56ff7ff-7113-404f-87db-a40b3600bcfe"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="174" height="30" uuid="36a7bc21-832f-43b1-a6b5-ea5c5d4e20fc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5af5216b-cabb-48a0-afcd-f3ba190a072f"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{remarks}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
