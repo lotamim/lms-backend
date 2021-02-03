@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="footerSubreport" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" isSummaryWithPageHeaderAndFooter="true" uuid="141de33b-8861-44e9-9b03-f3ddc0fc253f">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="529"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUB_DIR" class="java.lang.String"/>
+	<parameter name="username" class="java.lang.String"/>
+	<title>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="376" y="1" width="78" height="19" uuid="c9aaf1b7-3d50-421d-861e-d236524b327c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="161" y="1" width="50" height="20" uuid="94d39de5-dff5-412f-a389-a5b7feba8321"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Username :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="454" y="1" width="118" height="20" uuid="cc331d17-8fc0-4883-bf7a-816af511a1c5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Static text]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="211" y="1" width="75" height="19" uuid="0dddf1e3-79b4-45f5-82ce-4fcbcc9ec8a7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{username}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1" width="61" height="20" uuid="9b710536-c140-422f-b96a-f15e765ab64d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Developed By :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="62" y="1" width="99" height="20" uuid="2ebbdec9-1d54-4215-9ec7-aca812d45cc9"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Newgen Technology Ltd]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="286" y="1" width="90" height="19" uuid="fc6feb56-2f52-4997-8402-c96e6a144d58"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Printing Date & Time :]]></text>
+			</staticText>
+		</band>
+	</title>
+</jasperReport>
