@@ -27,13 +27,8 @@ public class UserPermissionService extends BaseService {
         List<Map<?, ?>> permissionListForRole;
         try {
             permissionListForRole = userPermissionRepository.permissionListForRole(roleId);
-//            if (permissionListForRole.size() == 0) {
-//                permissionListForRole = menuItemRepository.defaultPermissionList();
-//            }
-
             dMap.put("permissionListForRole", permissionListForRole);
             return dMap;
-
         } catch (Exception ex) {
             throw new RuntimeException(ex.getMessage());
         }
@@ -41,34 +36,69 @@ public class UserPermissionService extends BaseService {
 
 
     public Map save(Map<String, String> dMap) {
-        String[] items = dMap.get("items").split(",");
+        String[] checkedItems = dMap.get("checked").split(",");
+        String[] uncheckedItems = dMap.get("unchecked").split(",");
         String roleId = dMap.get("roleId");
 
         try {
-            for (String itemId : items) { // Note : আইটেম & রোল আইডি দিয়ে খুঁজে আনতে হবে
-                Permission permission = null;
-                permission = userPermissionRepository.findByItemId(Long.parseLong(itemId));
-                if (permission.getRoleId() != null) {
-//                    String id = permission.getRoleId();
-                    String[] ids = permission.getRoleId().split(",");
-                    if (ids.length >= 1) {
-                        for (String dd : ids) {
-                            if (dd.equals(roleId)) {
+            if (!checkedItems[0].equals("")) {
+                for (String itemId : checkedItems) {
+                    Permission permission = null;
+                    String result = "";
+                    permission = userPermissionRepository.findByItemId(Long.parseLong(itemId));
+                    if (permission.getRoleId() != null) {
+                        String[] ids = permission.getRoleId().split(",");
+                        if (ids.length >= 1) {
+                            for (String id : ids) {
+                                if (id.equals(roleId)) {
+                                    continue;
+                                } else {
+                                    if (!id.equals("")) {
+                                        result += id + ",";
+                                    } else {
+                                        permission.setRoleId(roleId);
+                                    }
+                                }
+                            }
+                            if (result != "") {
+                                result = result.concat(roleId);
+                                permission.setRoleId(result);
+                            }
+                        }
+
+                    } else {
+                        permission.setRoleId(roleId);
+                    }
+                    userPermissionRepository.save(permission);
+                }
+            }
+            if (!uncheckedItems[0].equals("")) {
+                for (String itemId : uncheckedItems) {
+                    String result = "";
+                    Permission permission = null;
+                    permission = userPermissionRepository.findByItemId(Long.parseLong(itemId));
+                    if (permission.getRoleId() != null) {
+                        String[] ids = permission.getRoleId().split(",");
+                        for (String id : ids) {
+                            if (id.equals(roleId)) {
                                 continue;
                             } else {
-                                permission.setRoleId(dd + "," + roleId);
+                                result += id + ",";
                             }
                         }
                     }
-                } else {
-                    permission.setRoleId(roleId);
+                    if (result != "") {
+                        permission.setRoleId(result.substring(0, result.length() - 1));
+                    } else {
+                        permission.setRoleId(result.substring(0, result.length()));
+                    }
+                    userPermissionRepository.save(permission);
                 }
-                userPermissionRepository.save(permission);
             }
-            return successMessage(SUCCESS, null);
+
         } catch (Exception ex) {
             return errorMessage(ERROR, null);
         }
+        return successMessage(SUCCESS, null);
     }
-
 }

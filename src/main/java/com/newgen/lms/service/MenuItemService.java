@@ -1,15 +1,19 @@
 package com.newgen.lms.service;
 
 import com.newgen.lms.common.BaseService;
+import com.newgen.lms.model.ApplicationUser;
 import com.newgen.lms.model.MenuItem;
 import com.newgen.lms.model.Permission;
+import com.newgen.lms.model.UserRoleMap;
+import com.newgen.lms.repository.ApplicationUserRepository;
 import com.newgen.lms.repository.MenuItemRepository;
 import com.newgen.lms.repository.UserPermissionRepository;
+import com.newgen.lms.repository.UserRoleMappingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -22,6 +26,13 @@ public class MenuItemService extends BaseService {
 
     @Autowired
     private UserPermissionRepository userPermissionRepository;
+
+    @Autowired
+    private ApplicationUserRepository applicationUserRepository;
+
+    @Autowired
+    private UserRoleMappingRepository userRoleMappingRepository;
+
 
     public Map save(Map<String, String> dMap) {
         MenuItem menuItem = null;
@@ -56,14 +67,11 @@ public class MenuItemService extends BaseService {
 
     public Map getDynamicMenuItem() {
         Map dMap = new HashMap();
-        dMap.put("list", menuItemRepository.dynamicMenuItem());
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        ApplicationUser applicationUser = applicationUserRepository.findByUsername(name);
+        UserRoleMap userRoleMap = userRoleMappingRepository.findByUserId(applicationUser.getId());
+        dMap.put("list", menuItemRepository.dynamicMenuItem(userRoleMap.getRoleId()));
         return dMap;
     }
-
-//    public Map getDefaultPermissionList() {
-//        Map dMap = new HashMap();
-//        dMap.put("defaultPermissionList", menuItemRepository.defaultPermissionList());
-//        return dMap;
-//    }
 
 }

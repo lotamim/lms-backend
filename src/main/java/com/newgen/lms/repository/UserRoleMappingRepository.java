@@ -21,4 +21,8 @@ public interface UserRoleMappingRepository extends JpaRepository<UserRoleMap,Lon
             + "ON ro.id = ur.role_id\n"
             + "GROUP BY au.username,au.id",nativeQuery = true)
     List<Map<?,?>> roleMappingList();
+
+    UserRoleMap findByRoleId(Long roleId);
+
+    UserRoleMap findByUserId(Long userId);
 }

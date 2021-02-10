@@ -53,12 +53,13 @@ public interface UserPermissionRepository extends JpaRepository<Permission, Long
             "ORDER BY 2,1", nativeQuery = true)
     List<Map<?, ?>> permissionListForRole(@Param("roleId") String roleId);
 
-//    @Query(value = "SELECT * FROM permission \n" +
-//            "WHERE menu_item_id =:itemId AND role_id =:roleId", nativeQuery = true)
-//    Permission findByItemId(@Param("itemId") Long itemId,@Param("roleId") Long roleId);
-
     @Query(value = "SELECT * FROM permission \n" +
             "WHERE menu_item_id =:itemId", nativeQuery = true)
     Permission findByItemId(@Param("itemId") Long itemId);
+
+
+    @Query(value ="SELECT * FROM permission\n" +
+            "WHERE role_id LIKE('%'||:roleId||'%')" ,nativeQuery = true)
+    List<Permission> findAllByRoleId(@Param("roleId") String roleId);
 
 }
