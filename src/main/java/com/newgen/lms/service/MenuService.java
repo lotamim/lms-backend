@@ -14,6 +14,7 @@ import java.util.Map;
 public class MenuService extends BaseService {
     private static final String SUCCESS = "Data Save Successful !";
     private static final String ERROR = "Data not found !";
+    private static final String MENU_NAME_EXIST = "Menu name already exist";
 
 
     @Autowired
@@ -22,22 +23,29 @@ public class MenuService extends BaseService {
     public Map<String, String> save(Map<String, String> dMap) {
         Menu menu = null;
         try {
-
+            Menu duplicateCheck = null;
             if (dMap.get("id") != "") {
                 Long id = Long.parseLong(dMap.get("id"));
                 menu = menuRepository.findById(id).get();
+                duplicateCheck = menuRepository.findByMenuNameIgnoreCaseAndIdIsNot(dMap.get("name"), menu.getId());
+                if (duplicateCheck != null) {
+                    return errorMessage(MENU_NAME_EXIST, null);
+                }
             } else {
                 menu = new Menu();
+                duplicateCheck = menuRepository.findByMenuNameIgnoreCase(dMap.get("name"));
+                if (duplicateCheck != null) {
+                    return errorMessage(MENU_NAME_EXIST, null);
+                }
             }
-
             menu.setMenuName(dMap.get("name"));
             menu.setRemarks(dMap.get("remarks"));
             menuRepository.save(menu);
-            return successMessage(SUCCESS, menu);
 
         } catch (Exception ex) {
             return errorMessage(ERROR, null);
         }
+        return successMessage(SUCCESS, menu);
     }
 
     public Map list() {

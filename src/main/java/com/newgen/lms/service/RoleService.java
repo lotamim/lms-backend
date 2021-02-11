@@ -23,8 +23,9 @@ public class RoleService extends BaseService {
 
     public Map<String, String> save(Map<String, String> map) {
         Map<String, String> msgMap = new HashMap<>();
+        Role role = null;
         try {
-            Role role = new Role();
+            role = new Role();
             long duplicate = roleRepository.duplicateCheck(map.get("name"));
             if (duplicate >= 1) {
                 return errorMessage(ERROR, role);
@@ -32,10 +33,10 @@ public class RoleService extends BaseService {
             role.setName(map.get("name"));
             role.setRemarks(map.get("remarks"));
             roleRepository.save(role);
-            return successMessage(SUCCESS, role);
         } catch (Exception ex) {
             return errorMessage(ex.getMessage(), null);
         }
+        return successMessage(SUCCESS, role);
     }
 
     public Map getRoleList() {

@@ -1,5 +1,6 @@
 package com.newgen.lms.service;
 
+import com.newgen.lms.common.BaseService;
 import com.newgen.lms.model.ApplicationUser;
 import com.newgen.lms.model.Role;
 import com.newgen.lms.model.UserRoleMap;
@@ -14,9 +15,12 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class UserRoleMappingService {
-    public static final String SUCCESS = "success";
-    public static final String ERROR = "error";
+public class UserRoleMappingService extends BaseService {
+    private static final String SUCCESS = "User role mapping successful !";
+    private static final String ERROR = "error";
+    private static final String USER_ID_NOT_FOUND = "User id not found !";
+    private static final String ROLE_ID_NOT_FOUND = "Role id not found !";
+
     @Autowired
     private UserRoleMappingRepository userRoleMappingRepository;
     @Autowired
@@ -26,26 +30,52 @@ public class UserRoleMappingService {
 
     public Map<String, String> save(Map<String, String> dMap) {
         Map<String, String> msgMap = new HashMap<>();
+        UserRoleMap userRoleMap = null;
         try {
             ApplicationUser applicationUser = applicationUserRepository.findByUsername(dMap.get("username"));
-            String[] roleArray = dMap.get("roleList").split(",");
-            for (int i = 0; i < roleArray.length; i++) {
-                Role role = roleRepository.findByName(roleArray[i]);
-                UserRoleMap userRoleMap = new UserRoleMap();
-                userRoleMap.setUserId(applicationUser.getId());
-                userRoleMap.setRoleId(role.getId());
-                userRoleMappingRepository.save(userRoleMap);
+            if (applicationUser == null) {
+                return errorMessage(USER_ID_NOT_FOUND, userRoleMap);
             }
-            msgMap.put(SUCCESS, "User role mapping successful !");
-            return msgMap;
+            Role role = roleRepository.findByName(dMap.get("name"));
+            if (role == null) {
+                return errorMessage(ROLE_ID_NOT_FOUND, userRoleMap);
+            }
+            userRoleMap = new UserRoleMap();
+            userRoleMap.setUserId(applicationUser.getId());
+            userRoleMap.setRoleId(role.getId());
+            userRoleMappingRepository.save(userRoleMap);
+
         } catch (Exception ex) {
-            msgMap.put(ERROR, ex.getMessage());
-            return msgMap;
+            return errorMessage(ex.getMessage(), userRoleMap);
         }
+        return successMessage(SUCCESS, userRoleMap);
     }
 
 
     public List<Map<?, ?>> getRoleMappingList() {
         return userRoleMappingRepository.roleMappingList();
     }
+
+    public Map<String, String> update(Map<String, String> dMap) {
+        UserRoleMap userRoleMap = null;
+        try {
+
+            ApplicationUser applicationUser = applicationUserRepository.findByUsername(dMap.get("username"));
+            if (applicationUser == null) {
+                return errorMessage(USER_ID_NOT_FOUND, userRoleMap);
+            }
+            Role role = roleRepository.findByName(dMap.get("name"));
+            if (role == null) {
+                return errorMessage(ROLE_ID_NOT_FOUND, userRoleMap);
+            }
+            userRoleMap = userRoleMappingRepository.findById(Long.parseLong(dMap.get("id"))).get();
+            userRoleMap.setUserId(applicationUser.getId());
+            userRoleMap.setRoleId(role.getId());
+            userRoleMappingRepository.save(userRoleMap);
+        } catch (Exception ex) {
+            return errorMessage(ex.getMessage(), userRoleMap);
+        }
+        return successMessage(SUCCESS, userRoleMap);
+    }
+
 }

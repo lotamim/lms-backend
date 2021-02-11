@@ -23,4 +23,9 @@ public class UserRoleMappingController {
     public List<Map<?, ?>> getUserRoleMappingList() {
         return userRoleMappingService.getRoleMappingList();
     }
+
+    @PostMapping("/update")
+    public Map<String, String> update(@RequestParam Map<String, String> dMap) {
+        return userRoleMappingService.update(dMap);
+    }
 }
