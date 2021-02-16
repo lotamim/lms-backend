@@ -16,6 +16,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,21 +36,26 @@ public class AuthenticationController {
     private CustomUserDetailsService userDetailsService;
 
     @PostMapping(Constants.LOG_IN)
-    public ResponseEntity<String> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+    public ResponseEntity<Object> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
         final String token = jwtTokenUtil.generateToken(userDetails);
-//        Map<String,String> map = new HashMap<>();
-        JSONObject map = new JSONObject();
+        Map<String,Object> map = new HashMap<>();
         map.put("username", userDetails.getUsername());
         map.put("password", userDetails.getPassword());
+        map.put("authorites", userDetails.getAuthorities());
         map.put("token", token);
-
+//
+//        JSONObject map = new JSONObject();
+//        map.put("username", userDetails.getUsername());
+//        map.put("password", userDetails.getPassword());
+//        map.put("token", token);
+//        map.put("authorites",userDetails.getAuthorities());
 //        return ResponseEntity.ok(new JwtResponse(token));
-        return new ResponseEntity<String>(map.toString(), HttpStatus.OK);
+        return new ResponseEntity<Object>(map, HttpStatus.OK);
     }
 
     @PostMapping(Constants.SIGN_UP)

@@ -6,7 +6,11 @@ package com.newgen.lms.service;
  */
 
 import com.newgen.lms.model.ApplicationUser;
+import com.newgen.lms.model.Role;
+import com.newgen.lms.model.UserRoleMap;
 import com.newgen.lms.repository.ApplicationUserRepository;
+import com.newgen.lms.repository.RoleRepository;
+import com.newgen.lms.repository.UserRoleMappingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -34,10 +38,19 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private PasswordEncoder bcryptEncoder;
 
+    @Autowired
+    private UserRoleMappingRepository userRoleMappingRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         ApplicationUser user = applicationUserRepository.findByUsername(username);
-        List<GrantedAuthority> authorites = Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        UserRoleMap userRoleMap = userRoleMappingRepository.findByUserId(user.getId());
+        Role role = roleRepository.findById(userRoleMap.getRoleId()).get();
+
+        List<GrantedAuthority> authorites = Arrays.asList(new SimpleGrantedAuthority(role.getName()));
         if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
