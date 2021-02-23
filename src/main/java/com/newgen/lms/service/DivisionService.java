@@ -1,5 +1,6 @@
 package com.newgen.lms.service;
 
+import com.newgen.lms.common.BaseService;
 import com.newgen.lms.model.Division;
 import com.newgen.lms.repository.DivisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class DivisionService extends BankService {
+public class DivisionService extends BaseService {
 
     private static final String SUCCESS = "Data Save Successful!";
     private static final String ERROR = "Data not found!";

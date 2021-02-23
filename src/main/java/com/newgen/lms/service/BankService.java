@@ -68,7 +68,7 @@ public class BankService extends BaseService {
         try {
             if (dMap.get("id") != "") {
                 bank = bankRepository.findById(Long.parseLong(dMap.get("id"))).get();
-                bank.setDelete(true);
+                bank.setDeleted(true);
                 bankRepository.save(bank);
             } else {
                 return errorMessage(ERROR, bank);

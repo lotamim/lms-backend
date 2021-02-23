@@ -72,7 +72,7 @@ public class UnitService extends BaseService {
         try {
             if (dMap.get("id") != "") {
                 unit = unitRepository.findById(Long.parseLong(dMap.get("id"))).get();
-                unit.setDelete(true);
+                unit.setDeleted(true);
                 unitRepository.save(unit);
             } else {
                 return errorMessage(ERROR, unit);
