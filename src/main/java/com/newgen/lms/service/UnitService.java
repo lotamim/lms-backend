@@ -24,20 +24,20 @@ public class UnitService extends BaseService {
     public Map<String, String> save(Map<String, String> dMap) {
         Unit unit = null;
         try {
-            Unit duplicateCheck = null;
+//            Unit duplicateCheck = null;
             if (dMap.get("id") != "") {
-                unit = unitRepository.findById(Long.parseLong(dMap.get("id"))).get();
-                duplicateCheck = unitRepository.findByUnitNameIgnoreCaseAndIdIsNot(dMap.get("unitName"), Long.parseLong(dMap.get("id")));
-                if (duplicateCheck != null) {
+//                unit = unitRepository.findById(Long.parseLong(dMap.get("id"))).get();
+                unit = unitRepository.findByUnitNameIgnoreCaseAndIdIsNot(dMap.get("unitName"), Long.parseLong(dMap.get("id")));
+                if (unit != null) {
                     return errorMessage(UNIT_NAME_EXIST, unit);
                 }
 
             } else {
-                unit = new Unit();
-                duplicateCheck = unitRepository.findByUnitNameIgnoreCase(dMap.get("unitName"));
-                if (duplicateCheck != null) {
+                unit = unitRepository.findByUnitNameIgnoreCase(dMap.get("unitName"));
+                if (unit != null) {
                     return errorMessage(UNIT_NAME_EXIST, unit);
                 }
+                unit = new Unit();
             }
 
             unit.setUnitName(dMap.get("unitName"));
