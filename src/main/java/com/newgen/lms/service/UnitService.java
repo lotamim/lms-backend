@@ -42,9 +42,9 @@ public class UnitService extends BaseService {
 
             unit.setUnitName(dMap.get("unitName"));
             unit.setUnitShortName(dMap.get("unitShortName"));
-            unit.setDescription(dMap.get("address"));
-            unit.setDescription(dMap.get("phoneNumber"));
-            unit.setDescription(dMap.get("contactPerson"));
+            unit.setAddress(dMap.get("address"));
+            unit.setPhoneNumber(dMap.get("phoneNumber"));
+            unit.setContactPerson(dMap.get("contactPerson"));
             unit.setDescription(dMap.get("description"));
 
             unitRepository.save(unit);
