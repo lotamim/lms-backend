@@ -53,7 +53,7 @@ public class AccountTypeService extends BaseService {
         AccountType accountType = null;
         try {
             accountType = accountTypeRepository.findById(Long.parseLong(dMap.get("id"))).get();
-            accountType.setDelete(true);
+            accountType.setDeleted(true);
             accountTypeRepository.save(accountType);
         } catch (Exception ex) {
             return errorMessage(ERROR, accountType);

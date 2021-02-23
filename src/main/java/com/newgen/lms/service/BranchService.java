@@ -42,7 +42,7 @@ public class BranchService extends BaseService {
         Branch branch = null;
         try {
             branch = branchRepository.findById(Long.parseLong(dMap.get("id"))).get();
-            branch.setDelete(true);
+            branch.setDeleted(true);
             branchRepository.save(branch);
         } catch (Exception ex) {
             errorMessage(ERROR, branch);
