@@ -21,5 +21,5 @@ public class AccountType extends Auditable<String> {
     private String accountTypeName;
     @Column(length = 250)
     private String description;
-    private boolean isDelete = false;
+    private boolean isDeleted = false;
 }

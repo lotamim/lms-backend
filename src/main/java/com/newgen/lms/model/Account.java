@@ -24,4 +24,5 @@ public class Account extends Auditable<String> {
     private Long unitId;            // reference id Or foreign-key
     private String accountNumber;
     private Double accountBalance;
+    private boolean isDeleted = false;
 }

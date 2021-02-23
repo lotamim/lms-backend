@@ -15,7 +15,7 @@ public interface BankRepository extends JpaRepository<Bank, Long> {
 
     Bank findByBankNameIgnoreCaseAndIdIsNot(String name, Long id);
 
-    @Query(value ="SELECT * FROM bank WHERE is_delete = false" ,nativeQuery = true)
+    @Query(value ="SELECT * FROM bank WHERE is_deleted = false" ,nativeQuery = true)
     List<Map<?,?>> getList ();
 
 

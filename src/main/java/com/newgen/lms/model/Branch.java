@@ -21,5 +21,5 @@ public class Branch {
     private String email;
     private String contactPerson;
     private String district;
-    private boolean isDelete = false;
+    private boolean isDeleted = false;
 }

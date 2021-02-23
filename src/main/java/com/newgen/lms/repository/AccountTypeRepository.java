@@ -15,8 +15,8 @@ public interface AccountTypeRepository extends JpaRepository<AccountType, Long> 
 
     AccountType findByAccountTypeNameIgnoreCaseAndIdIsNot(String accountTypeName, Long id);
 
-    @Query(value = "SELECT id, account_type_name, description, is_delete\n"
+    @Query(value = "SELECT id, account_type_name, description, is_deleted\n"
             + "FROM public.account_type\n"
-            + "WHERE is_delete = false", nativeQuery = true)
+            + "WHERE is_deleted = false", nativeQuery = true)
     List<Map<?,?>> getList();
 }
