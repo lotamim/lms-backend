@@ -28,5 +28,5 @@ public class Unit extends Auditable<String> {
     private String contactPerson;
     @Column(length = 250)
     private String description;
-    private boolean isDelete = false;
+    private boolean isDeleted = false;
 }

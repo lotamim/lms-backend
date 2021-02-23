@@ -15,7 +15,7 @@ public interface UnitRepository extends JpaRepository<Unit, Long> {
 
     Unit findByUnitNameIgnoreCaseAndIdIsNot(String name, Long id);
 
-    @Query(value ="SELECT * FROM unit WHERE is_delete = false" ,nativeQuery = true)
+    @Query(value ="SELECT * FROM unit WHERE is_deleted = false" ,nativeQuery = true)
     List<Map<?,?>> getList ();
 
 }
