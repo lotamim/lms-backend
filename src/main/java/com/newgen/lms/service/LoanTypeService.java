@@ -65,12 +65,11 @@ public class LoanTypeService extends BaseService {
         try {
             if (dMap.get("id") != "") {
                 loanType = loanTypeRepository.findById(Long.parseLong(dMap.get("id"))).get();
-                loanType.setDeleted(true);
-                loanTypeRepository.save(loanType);
             } else {
                 return errorMessage(ERROR, loanType);
             }
-
+            loanType.setDeleted(true);
+            loanTypeRepository.save(loanType);
         } catch (Exception ex) {
             return errorMessage(ERROR, null);
         }
