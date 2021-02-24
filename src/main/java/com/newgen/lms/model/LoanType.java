@@ -17,7 +17,7 @@ public class LoanType extends Auditable<String> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 50)
-    private String lonaTypeName;
+    private String loanTypeName;
     @Column(length = 250)
     private String description;
     private boolean isDeleted = false;
