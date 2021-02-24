@@ -1,7 +1,6 @@
 package com.newgen.lms.controller;
 
 
-import com.newgen.lms.service.LoanService;
 import com.newgen.lms.service.LoanTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
