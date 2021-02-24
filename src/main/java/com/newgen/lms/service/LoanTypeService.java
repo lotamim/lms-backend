@@ -1,9 +1,7 @@
 package com.newgen.lms.service;
 
 import com.newgen.lms.common.BaseService;
-import com.newgen.lms.model.Loan;
 import com.newgen.lms.model.LoanType;
-import com.newgen.lms.repository.LoanRepository;
 import com.newgen.lms.repository.LoanTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,12 +65,11 @@ public class LoanTypeService extends BaseService {
         try {
             if (dMap.get("id") != "") {
                 loanType = loanTypeRepository.findById(Long.parseLong(dMap.get("id"))).get();
-                loanType.setDeleted(true);
-                loanTypeRepository.save(loanType);
             } else {
                 return errorMessage(ERROR, loanType);
             }
-
+            loanType.setDeleted(true);
+            loanTypeRepository.save(loanType);
         } catch (Exception ex) {
             return errorMessage(ERROR, null);
         }
