@@ -1,6 +1,5 @@
 package com.newgen.lms.model;
 
-
 import com.newgen.lms.model.audit.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
