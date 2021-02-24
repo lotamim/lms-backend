@@ -25,5 +25,5 @@ public class Division extends Auditable<String> {
     private String phoneNumber;
     @Column(length = 250)
     private String description;
-    private boolean isDelete = false;
+    private boolean isDeleted = false;
 }

@@ -69,7 +69,7 @@ public class DivisionService extends BaseService {
         try {
             if (dMap.get("id") != "") {
                 division = divisionRepository.findById(Long.parseLong(dMap.get("id"))).get();
-                division.setDelete(true);
+                division.setDeleted(true);
                 divisionRepository.save(division);
             } else {
                 return errorMessage(ERROR, division);
