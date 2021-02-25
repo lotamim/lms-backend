@@ -9,6 +9,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/bank")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class BankController {
 
     @Autowired
