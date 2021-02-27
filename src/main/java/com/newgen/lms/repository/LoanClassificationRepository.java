@@ -1,7 +1,5 @@
 package com.newgen.lms.repository;
 
-import com.newgen.lms.model.Charge;
-import com.newgen.lms.model.Loan;
 import com.newgen.lms.model.LoanClassification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,5 +15,4 @@ public interface LoanClassificationRepository extends JpaRepository<LoanClassifi
 
     @Query(value = "SELECT * FROM loan_classification WHERE is_deleted = false", nativeQuery = true)
     List<Map<?, ?>> getList();
-
 }

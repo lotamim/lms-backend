@@ -77,8 +77,8 @@ public class LoanClassificationService extends BaseService {
     public Map list() {
         try {
             Map dMap = new LinkedHashMap();
-            List<Map<?, ?>> chargeList = loanClassificationRepository.getList();
-            dMap.put("chargeList", chargeList);
+            List<Map<?, ?>> classificationList = loanClassificationRepository.getList();
+            dMap.put("classificationList", classificationList);
             return dMap;
         } catch (Exception ex) {
             return errorMessage(ex.getMessage(), null);
