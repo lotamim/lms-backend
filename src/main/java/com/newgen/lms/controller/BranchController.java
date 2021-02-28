@@ -1,12 +1,8 @@
 package com.newgen.lms.controller;
 
 import com.newgen.lms.service.BranchService;
-import io.swagger.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -27,7 +23,8 @@ public class BranchController {
         return branchService.delete(dMap);
     }
 
-    public String list() {
-        return null;
+    @GetMapping("/list")
+    public Map list() {
+        return branchService.list();
     }
 }
