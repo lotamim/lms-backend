@@ -16,7 +16,7 @@ public class BankService extends BaseService {
     private static final String ERROR = "Data not found!";
     private static final String BANK_NAME_EXIST = "Bank name already exist";
     private static final String DELETED = "Data Delete Successful!";
-
+    private static final String BANK_NAME_EMPTY = "Bank name can't be empty";
 
     @Autowired
     private BankRepository bankRepository;
@@ -39,7 +39,9 @@ public class BankService extends BaseService {
                     return errorMessage(BANK_NAME_EXIST, bank);
                 }
             }
-
+            if (dMap.get("bankName") == "") {
+              return  errorMessage(BANK_NAME_EMPTY,bank);
+            }
             bank.setBankName(dMap.get("bankName"));
             bank.setBankShortName(dMap.get("bankShortName"));
             bank.setDescription(dMap.get("description"));
