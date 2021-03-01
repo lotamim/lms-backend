@@ -64,7 +64,7 @@ public class AccountTypeService extends BaseService {
     public Map list() {
         Map dMap = new LinkedHashMap();
         try {
-            dMap.put("list", accountTypeRepository.getList());
+            dMap.put("accountTypeList", accountTypeRepository.getList());
         } catch (Exception ex) {
             return errorMessage(ERROR, null);
         }
