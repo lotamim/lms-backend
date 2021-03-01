@@ -16,7 +16,7 @@ public interface DivisionRepository extends JpaRepository<Division,Long> {
 
     Division findByDivisionNameIgnoreCaseAndIdIsNot(String name, Long id);
 
-    @Query(value ="SELECT * FROM division WHERE is_delete = false" ,nativeQuery = true)
+    @Query(value ="SELECT * FROM division WHERE is_deleted = false" ,nativeQuery = true)
     List<Map<?,?>> getList ();
 
 }
