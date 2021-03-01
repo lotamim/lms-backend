@@ -23,23 +23,23 @@ public class LoanSubTypeService extends BaseService {
     public Map<String, String> save(Map<String, String> dMap) {
         LoanSubType loanSubType = null;
         try {
+            LoanSubType duplicateCheck = null;
             if (dMap.get("id") != "") {
-                loanSubType = loanSubTypeRepository.findByLoanSubTypeNameIgnoreCaseAndIdIsNot(dMap.get("loanSubTypeName"), Long.parseLong(dMap.get("id")));
-                if (loanSubType != null) {
+                loanSubType = loanSubTypeRepository.findById(Long.parseLong(dMap.get("id"))).get();
+                duplicateCheck = loanSubTypeRepository.findByLoanSubTypeNameIgnoreCaseAndIdIsNot(dMap.get("loanSubTypeName"), Long.parseLong(dMap.get("id")));
+                if (duplicateCheck != null) {
                     return errorMessage(LOAN_SUBTYPE_EXIST, loanSubType);
                 }
 
             } else {
-                loanSubType = loanSubTypeRepository.findByLoanSubTypeNameIgnoreCase(dMap.get("loanSubTypeName"));
-                if (loanSubType != null) {
+                loanSubType = new LoanSubType();
+                duplicateCheck = loanSubTypeRepository.findByLoanSubTypeNameIgnoreCase(dMap.get("loanSubTypeName"));
+                if (duplicateCheck != null) {
                     return errorMessage(LOAN_SUBTYPE_EXIST, loanSubType);
                 }
-                loanSubType = new LoanSubType();
             }
-
             loanSubType.setLoanSubTypeName(dMap.get("loanSubTypeName"));
             loanSubType.setDescription(dMap.get("description"));
-
             loanSubTypeRepository.save(loanSubType);
 
         } catch (Exception ex) {
