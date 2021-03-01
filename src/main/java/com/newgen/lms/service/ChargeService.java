@@ -17,6 +17,7 @@ public class ChargeService extends BaseService {
     private static final String ERROR = "Data not found!";
     private static final String CHARGE_NAME_EXIST = "Charge name already exist!";
     private static final String DELETED = "Data Delete Successful!";
+    private static final String REQUIRED = "Fill up the required field !";
 
 
     @Autowired
@@ -25,22 +26,26 @@ public class ChargeService extends BaseService {
     public Map saveOrUpdate(Map<String, String> dMap) {
         Charge charge = null;
         try {
-
+            if (dMap.get("chargeName") == "" || dMap.get("chargeRate") == "") {
+                return errorMessage(REQUIRED, null);
+            }
+            Charge duplicateCheck = null;
             if (dMap.get("id") != "") {
-                charge = chargeRepository.findByChangeNameIgnoreCaseAndIdIsNot(dMap.get("changeName"), Long.parseLong(dMap.get("id")));
-                if (charge != null) {
+                charge = chargeRepository.findById(Long.parseLong(dMap.get("id"))).get();
+                duplicateCheck = chargeRepository.findByChargeNameIgnoreCaseAndIdIsNot(dMap.get("chargeName"), Long.parseLong(dMap.get("id")));
+                if (duplicateCheck != null) {
                     return errorMessage(CHARGE_NAME_EXIST, charge);
                 }
 
             } else {
-                charge = chargeRepository.findByChangeNameIgnoreCase(dMap.get("changeName"));
+                charge = chargeRepository.findByChargeNameIgnoreCase(dMap.get("chargeName"));
                 if (charge != null) {
                     return errorMessage(CHARGE_NAME_EXIST, charge);
                 }
                 charge = new Charge();
             }
 
-            charge.setChangeName(dMap.get("changeName"));
+            charge.setChargeName(dMap.get("chargeName"));
             charge.setChargeRate(Double.parseDouble(dMap.get("chargeRate")));
             charge.setRemarks(dMap.get("remarks"));
 

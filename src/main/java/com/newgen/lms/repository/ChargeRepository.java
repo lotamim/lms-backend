@@ -12,9 +12,9 @@ import java.util.Map;
 public interface ChargeRepository extends JpaRepository<Charge, Long> {
 
 
-    Charge findByChangeNameIgnoreCase(String name);
+    Charge findByChargeNameIgnoreCase(String name);
 
-    Charge findByChangeNameIgnoreCaseAndIdIsNot(String name, Long id);
+    Charge findByChargeNameIgnoreCaseAndIdIsNot(String name, Long id);
 
     @Query(value = "SELECT * FROM charge WHERE is_deleted = false", nativeQuery = true)
     List<Map<?, ?>> getList();

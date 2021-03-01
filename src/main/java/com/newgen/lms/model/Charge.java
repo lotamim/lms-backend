@@ -17,7 +17,7 @@ public class Charge extends Auditable<String> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 50)
-    private String changeName;
+    private String chargeName;
     private Double chargeRate = 0.0;
     @Column(length = 250)
     private String remarks;
