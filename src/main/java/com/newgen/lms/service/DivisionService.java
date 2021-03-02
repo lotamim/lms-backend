@@ -2,6 +2,7 @@ package com.newgen.lms.service;
 
 import com.newgen.lms.common.BaseService;
 import com.newgen.lms.model.Division;
+import com.newgen.lms.model.Unit;
 import com.newgen.lms.repository.DivisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ public class DivisionService extends BaseService {
     private static final String ERROR = "Data not found!";
     private static final String DIVISION_NAME_EXIST = "Division name already exist";
     private static final String DELETED = "Data Delete Successful!";
+    private static final String DIVISION_NAME_EMPTY = "Division name is empty!";
 
     @Autowired
     private DivisionRepository divisionRepository;
@@ -24,20 +26,25 @@ public class DivisionService extends BaseService {
     public Map<String, String> save(Map<String, String> dMap) {
         Division division = null;
         try {
+            Division duplicateCheck = null;
             if (dMap.get("id") != "") {
-                division = divisionRepository.findByDivisionNameIgnoreCaseAndIdIsNot(dMap.get("divisionName"), Long.parseLong(dMap.get("id")));
-                if (division != null) {
+                division = divisionRepository.findById(Long.parseLong(dMap.get("id"))).get();
+                duplicateCheck = divisionRepository.findByDivisionNameIgnoreCaseAndIdIsNot(dMap.get("divisionName"), Long.parseLong(dMap.get("id")));
+                if (duplicateCheck != null) {
                     return errorMessage(DIVISION_NAME_EXIST, division);
                 }
 
             } else {
-                division = divisionRepository.findByDivisionNameIgnoreCase(dMap.get("divisionName"));
-                if (division != null) {
+                division = new Division();
+                duplicateCheck = divisionRepository.findByDivisionNameIgnoreCase(dMap.get("divisionName"));
+                if (duplicateCheck != null) {
                     return errorMessage(DIVISION_NAME_EXIST, division);
                 }
-                division = new Division();
             }
 
+            if (dMap.get("divisionName") == "") {
+                return  errorMessage(DIVISION_NAME_EMPTY,division);
+            }
             division.setDivisionName(dMap.get("divisionName"));
             division.setContactPerson(dMap.get("contactPerson"));
             division.setEmail(dMap.get("email"));
