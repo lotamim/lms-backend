@@ -16,18 +16,23 @@ public class AccountController {
     private AccountService accountService;
 
     @PostMapping("/saveOrUpdate")
-    public Map saveOrUpdate(@RequestBody Map<String,String> dMap) {
+    public Map saveOrUpdate(@RequestBody Map<String, String> dMap) {
         return accountService.saveOrUpdate(dMap);
     }
 
     @PostMapping("/delete")
-    public Map delete(@RequestBody Map<String,String> dMap) {
+    public Map delete(@RequestBody Map<String, String> dMap) {
         return accountService.delete(dMap);
     }
 
     @GetMapping("/list")
     public Map list() {
         return accountService.list();
+    }
+
+    @PostMapping("/select")
+    public Map select(@RequestBody Map<String, String> dMap) {
+        return accountService.select(Long.parseLong(dMap.get("id")));
     }
 
 
