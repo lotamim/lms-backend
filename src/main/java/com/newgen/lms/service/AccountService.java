@@ -6,6 +6,7 @@ import com.newgen.lms.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +49,7 @@ public class AccountService extends BaseService {
                 }
 
             } else {
-                account = accountRepository.findByAccountNumberIgnoreCaseAndBankId(dMap.get("accountNumber"),Long.parseLong(dMap.get("bankId")));
+                account = accountRepository.findByAccountNumberIgnoreCaseAndBankId(dMap.get("accountNumber"), Long.parseLong(dMap.get("bankId")));
                 if (account != null) {
                     return errorMessage(ACCOUNT_NUMBER_EXIST, account);
                 }
@@ -76,11 +77,11 @@ public class AccountService extends BaseService {
             }
 
             if (dMap.get("accountNumber") == "") {
-                return  errorMessage(ACCOUNT_NUMBER_NOT_FOUND,account);
+                return errorMessage(ACCOUNT_NUMBER_NOT_FOUND, account);
             }
 
             if (dMap.get("accountTypeId") == "") {
-                return  errorMessage(ACCOUNT_TYPE_NOT_FOUND,account);
+                return errorMessage(ACCOUNT_TYPE_NOT_FOUND, account);
             }
 
 
@@ -127,6 +128,16 @@ public class AccountService extends BaseService {
             return errorMessage(ERROR, null);
         }
         return successMessage(DELETED, account);
+    }
+
+    public Map select(Long id) {
+        Map map = new HashMap();
+        try {
+            map.put("list", accountRepository.selectOne(id));
+        } catch (Exception ex) {
+            return errorMessage(ex.getMessage(), null);
+        }
+        return map;
     }
 
 }
