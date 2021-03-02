@@ -17,6 +17,7 @@ public class UnitService extends BaseService {
     private static final String ERROR = "Data not found!";
     private static final String UNIT_NAME_EXIST = "Unit name already exist";
     private static final String DELETED = "Data Delete Successful!";
+    private static final String UNIT_NAME_EMPTY = "Unit name is empty!";
 
     @Autowired
     private UnitRepository unitRepository;
@@ -24,20 +25,23 @@ public class UnitService extends BaseService {
     public Map<String, String> save(Map<String, String> dMap) {
         Unit unit = null;
         try {
-//            Unit duplicateCheck = null;
+            Unit duplicateCheck = null;
             if (dMap.get("id") != "") {
-//                unit = unitRepository.findById(Long.parseLong(dMap.get("id"))).get();
-                unit = unitRepository.findByUnitNameIgnoreCaseAndIdIsNot(dMap.get("unitName"), Long.parseLong(dMap.get("id")));
-                if (unit != null) {
+                unit = unitRepository.findById(Long.parseLong(dMap.get("id"))).get();
+                duplicateCheck = unitRepository.findByUnitNameIgnoreCaseAndIdIsNot(dMap.get("unitName"), Long.parseLong(dMap.get("id")));
+                if (duplicateCheck != null) {
                     return errorMessage(UNIT_NAME_EXIST, unit);
                 }
 
             } else {
-                unit = unitRepository.findByUnitNameIgnoreCase(dMap.get("unitName"));
-                if (unit != null) {
+                unit = new Unit();
+                duplicateCheck = unitRepository.findByUnitNameIgnoreCase(dMap.get("unitName"));
+                if (duplicateCheck != null) {
                     return errorMessage(UNIT_NAME_EXIST, unit);
                 }
-                unit = new Unit();
+            }
+            if (dMap.get("unitName") == "") {
+                return  errorMessage(UNIT_NAME_EMPTY,unit);
             }
 
             unit.setUnitName(dMap.get("unitName"));
