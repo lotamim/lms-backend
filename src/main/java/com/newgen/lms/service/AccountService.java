@@ -41,16 +41,18 @@ public class AccountService extends BaseService {
         Branch branch = null;
         Unit unit = null;
         Division division = null;
+        Account accountDuplicateCheck = null;
         try {
             if (dMap.get("id") != "") {
-                account = accountRepository.findByAccountNumberIgnoreCaseAndIdIsNot(dMap.get("accountNumber"), Long.parseLong(dMap.get("id")));
-                if (account != null) {
+                account = accountRepository.findById( Long.parseLong(dMap.get("id"))).get();
+                accountDuplicateCheck = accountRepository.findByAccountNumberIgnoreCaseAndIdIsNot(dMap.get("accountNumber"), Long.parseLong(dMap.get("id")));
+                if (accountDuplicateCheck != null) {
                     return errorMessage(ACCOUNT_NUMBER_EXIST, account);
                 }
 
             } else {
-                account = accountRepository.findByAccountNumberIgnoreCaseAndBankId(dMap.get("accountNumber"), Long.parseLong(dMap.get("bankId")));
-                if (account != null) {
+                accountDuplicateCheck = accountRepository.findByAccountNumberIgnoreCaseAndBankId(dMap.get("accountNumber"), Long.parseLong(dMap.get("bankId")));
+                if (accountDuplicateCheck != null) {
                     return errorMessage(ACCOUNT_NUMBER_EXIST, account);
                 }
                 account = new Account();
