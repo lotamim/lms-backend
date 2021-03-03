@@ -13,7 +13,7 @@ import java.util.Map;
 public interface AccountRepository extends JpaRepository<Account,Long> {
     Account findByAccountNumberIgnoreCase(String name);
     Account findByAccountNumberIgnoreCaseAndBankId(String accNumber,Long bankId);
-    Account findByAccountNumberIgnoreCaseAndIdIsNot(String name, Long id);
+    Account findByAccountNumberIgnoreCaseAndBankIdAndIdIsNot(String name, Long bankId,Long id);
 
     @Query(value ="SELECT \n" +
             "acc.id,\n" +
