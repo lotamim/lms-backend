@@ -8,11 +8,6 @@ import java.util.Map;
 @Service
 public class SanctionService extends BaseService {
     public Map save() {
-        try{
-
-        }catch (Exception ex){
-
-        }
         return null;
     }
 

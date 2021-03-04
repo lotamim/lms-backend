@@ -8,8 +8,13 @@ import java.util.Map;
 @RequestMapping("/sanction")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class SanctionController {
-    @PostMapping("/saveOrUpdate")
-    public Map saveOrUpdate(@RequestBody Map<String, String> dMap) {
+    @PostMapping("/save")
+    public Map save(@RequestBody Map<String, Object> dMap) {
+        return null;
+    }
+
+    @PostMapping("/update")
+    public Map update(@RequestBody Map<String, Object> dMap) {
         return null;
     }
 
