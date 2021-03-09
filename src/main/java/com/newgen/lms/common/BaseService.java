@@ -26,7 +26,7 @@ public class BaseService {
     }
 
     public Date formattedDate(String date) throws ParseException {
-        SimpleDateFormat formater = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat formater = new SimpleDateFormat(Constants.DATE_FORMAT);
         Date formatted_date = formater.parse(date);
         return formatted_date;
     }

@@ -6,12 +6,15 @@ package com.newgen.lms.common;
 */
 
 public class Constants {
-    public static final String  LOG_IN = "/logIn";
-    public static final String  SIGN_UP = "/signUp";
+    public static final String LOG_IN = "/logIn";
+    public static final String SIGN_UP = "/signUp";
     public static final String ORIGIN_URL = "http://localhost:3000";
-    public static final String API ="/api";
+    public static final String API = "/api";
     public static final String SUCCESS_MESSAGE = "Data Save Successfully !";
     public static final String UPDATE_MESSAGE = "Data update Successfully !";
-    public static final String FILE_PATH  = "uploadFiles/";
+    public static final String FILE_PATH = "uploadFiles/";
     public static final String SUB_DIR_PATH = "src/main/resources/";
+    public static final String DATE_FORMAT = "dd-MM-yyyy";
+    public static final String DATETIME_FORMAT = "dd-MM-yyyy hh:mm:ss";
 }
+

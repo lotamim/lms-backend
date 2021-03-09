@@ -5,6 +5,7 @@ import com.newgen.lms.model.*;
 import com.newgen.lms.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -12,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-//@Transactional
 public class SanctionService extends BaseService {
 
     private static final String BANK_DOES_NOT_EXIST = "Bank name doesn't exist";
@@ -32,6 +32,7 @@ public class SanctionService extends BaseService {
     private static final String LIMIT_EMPTY = "Limit can't be empty";
     private static final String MOTGAGE_ITEM_EMPTY = "Motgage item can't be empty";
     private static final String MOTGAGE_ITEM_VALUE_EMPTY = "Motgage item value can't be empty";
+    public static final String SUCCESS = "data save successful !";
 
     @Autowired
     private SanctionRepository sanctionRepository;
@@ -52,7 +53,7 @@ public class SanctionService extends BaseService {
     @Autowired
     private ChargeRepository chargeRepository;
 
-    //    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public Map save(Map<String, Object> dMap) {
         Bank bank = null;
         Branch branch = null;
@@ -169,16 +170,13 @@ public class SanctionService extends BaseService {
                 sanctionDetail.setMortgageItem((String) ((LinkedHashMap) item).get("mortgageItem"));
                 sanctionDetail.setMortgageItemValue(Double.parseDouble((String) ((LinkedHashMap) item).get("mortgageItemValue")));
                 sanctionDetail.setInterestRate(Double.parseDouble((String) ((LinkedHashMap) item).get("interestRate")));
-
                 sanctionDetailsRepository.save(sanctionDetail);
-
             }
 
-
         } catch (Exception ex) {
-
+            throw new RuntimeException(ex.getMessage());
         }
-        return null;
+        return successMessage(SUCCESS, null);
     }
 
     public Map update() {
