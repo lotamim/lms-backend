@@ -1,6 +1,5 @@
 package com.newgen.lms.controller;
 
-import com.newgen.lms.model.Sanction;
 import com.newgen.lms.service.LevelOfAuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,7 @@ public class LevelOfAuthorityController {
     private LevelOfAuthorityService levelOfAuthorityService;
 
     @PostMapping("/save")
-    public Map save(@RequestBody Map<String,String> dMap) {
+    public Map save(@RequestBody Map<String, String> dMap) {
         return levelOfAuthorityService.save(dMap);
     }
 

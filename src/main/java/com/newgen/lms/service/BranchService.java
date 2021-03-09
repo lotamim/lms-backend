@@ -14,7 +14,7 @@ public class BranchService extends BaseService {
     private static final String SUCCESS = "Data save successful !";
     private static final String ERROR = "Data is not found !";
     private static final String DELETE = "Data deleted successful !";
-    private static final String REQUIRED_FIELD  = "Fill up required filed";
+    private static final String REQUIRED_FIELD = "Fill up required filed";
 
     @Autowired
     private BranchRepository branchRepository;
@@ -28,8 +28,8 @@ public class BranchService extends BaseService {
             } else {
                 branch = new Branch();
             }
-            if(dMap.get("branchName") == ""){
-                return errorMessage(REQUIRED_FIELD,null);
+            if (dMap.get("branchName") == "") {
+                return errorMessage(REQUIRED_FIELD, branch);
             }
             branch.setBranchName(dMap.get("branchName"));
             branch.setAddress(dMap.get("address"));
@@ -57,11 +57,12 @@ public class BranchService extends BaseService {
     }
 
     public Map list() {
+        Branch branch = null;
         Map dMap = new LinkedHashMap();
         try {
             dMap.put("branchList", branchRepository.getBranchList());
         } catch (Exception ex) {
-            errorMessage(ex.getMessage(), null);
+            errorMessage(ex.getMessage(), branch);
         }
         return dMap;
     }

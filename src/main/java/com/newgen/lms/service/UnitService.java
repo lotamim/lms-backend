@@ -41,7 +41,7 @@ public class UnitService extends BaseService {
                 }
             }
             if (dMap.get("unitName") == "") {
-                return  errorMessage(UNIT_NAME_EMPTY,unit);
+                return errorMessage(UNIT_NAME_EMPTY, unit);
             }
 
             unit.setUnitName(dMap.get("unitName"));

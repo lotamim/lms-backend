@@ -18,5 +18,5 @@ public interface AccountTypeRepository extends JpaRepository<AccountType, Long> 
     @Query(value = "SELECT id, account_type_name, description, is_deleted\n"
             + "FROM public.account_type\n"
             + "WHERE is_deleted = false", nativeQuery = true)
-    List<Map<?,?>> getList();
+    List<Map<?, ?>> getList();
 }
