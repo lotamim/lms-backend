@@ -2,6 +2,9 @@ package com.newgen.lms.common;
 
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,5 +23,11 @@ public class BaseService {
         sb.append(message);
         dMap.put("success", sb.toString());
         return dMap;
+    }
+
+    public Date formattedDate(String date) throws ParseException {
+        SimpleDateFormat formater = new SimpleDateFormat("dd-mm-yyyy");
+        Date formatted_date = formater.parse(date);
+        return formatted_date;
     }
 }

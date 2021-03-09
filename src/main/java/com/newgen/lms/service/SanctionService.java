@@ -6,12 +6,13 @@ import com.newgen.lms.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
+//@Transactional
 public class SanctionService extends BaseService {
 
     private static final String BANK_DOES_NOT_EXIST = "Bank name doesn't exist";
@@ -51,7 +52,7 @@ public class SanctionService extends BaseService {
     @Autowired
     private ChargeRepository chargeRepository;
 
-
+    //    @Transactional(rollbackFor = Exception.class)
     public Map save(Map<String, Object> dMap) {
         Bank bank = null;
         Branch branch = null;
@@ -62,8 +63,7 @@ public class SanctionService extends BaseService {
         Charge charge = null;
         Sanction sanction = null;
         SanctionDetail sanctionDetail = null;
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date formattedSanctionDate;
 
 
         try {
@@ -82,6 +82,9 @@ public class SanctionService extends BaseService {
                 }
             }
 
+            if (dMap.get("sanctionDate") == "") {
+                return errorMessage(SANCTION_DATE_EMPTY, sanction);
+            }
             if (dMap.get("combineLimit") == "") {
                 return errorMessage(COMBINED_LIMIT_EMPTY, sanction);
             }
@@ -109,6 +112,7 @@ public class SanctionService extends BaseService {
             sanction.setRemarks((String) dMap.get("remarks"));
 
             sanctionRepository.save(sanction);
+
 
             List list = (List) dMap.get("sancDetalis");
             for (Object item : list) {
@@ -152,7 +156,9 @@ public class SanctionService extends BaseService {
                     }
                 }
 
-//                sanctionDetail.setSanctionDate(dateFormat.parse((String) ((LinkedHashMap) item).get("sanctionDate")));
+                formattedSanctionDate = formattedDate((String) ((LinkedHashMap) item).get("sanctionDate"));
+
+                sanctionDetail.setSanctionDate(formattedSanctionDate);
                 sanctionDetail.setSanctionId(sanction.getId());
                 sanctionDetail.setDivisionId(division.getId());
                 sanctionDetail.setUnitId(unit.getId());

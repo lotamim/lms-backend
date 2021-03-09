@@ -17,7 +17,7 @@ public class Sanction extends Auditable<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Double combineLimit;
+    private Double combineLimit = 0.0;
     private boolean currency;           // bdt or usd
     private Long bankId;                // foreign key
     private Long branchId;              // foreign key

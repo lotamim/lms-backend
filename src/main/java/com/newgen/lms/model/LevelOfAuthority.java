@@ -1,6 +1,5 @@
 package com.newgen.lms.model;
 
-
 import com.newgen.lms.common.Status;
 import com.newgen.lms.common.Type;
 import com.newgen.lms.model.audit.Auditable;
