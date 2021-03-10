@@ -159,6 +159,8 @@ public class SanctionService extends BaseService {
 
                 formattedSanctionDate = formattedDate((String) ((LinkedHashMap) item).get("sanctionDate"));
 
+                //System.out.println(10/0);
+
                 sanctionDetail.setSanctionDate(formattedSanctionDate);
                 sanctionDetail.setSanctionId(sanction.getId());
                 sanctionDetail.setDivisionId(division.getId());
