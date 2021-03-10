@@ -29,7 +29,8 @@ public class LoanDisbursementService extends BaseService {
     private static final String EXPIRE_DATE_EMPTY = "Expire date not found!";
     private static final String DISBURSEMENT_DATE_EMPTY = "Disbursement date not found!";
     private static final String STATUS_EMPTY = "Status not found!";
-    private static final String DISBURSEMENT_AMOUNT_EXCEED = "Disbursement amount exceeded!";
+    private static final String DISBURSEMENT_AMOUNT_EXCEED_FOR_UNIT = "Disbursement amount exceeded for combined unit allowance!";
+    private static final String DISBURSEMENT_AMOUNT_EXCEED_FOR_SANCTION = "Combined sanction limit exceeded!";
     private static final String LOAN_AMOUNT_NEGATIVE = "Loan amount can't be negative!";
 
 
@@ -98,16 +99,25 @@ public class LoanDisbursementService extends BaseService {
 
 
             if (loanAmountInBDT > 0) {
-                Double disbursementLimit = loanDisbursementRepository.checkLoanLimit(Long.parseLong(dMap.get("sanctionId")), Long.parseLong(dMap.get("unitId")));
+                Double disbursementLimitForUnit = loanDisbursementRepository.checkLoanLimitForUnit(Long.parseLong(dMap.get("sanctionId")), Long.parseLong(dMap.get("unitId")));
                 Double totalAmountInDisbursementRef = loanDisbursementRepository.totalAmountInDisbursementRef(dMap.get("disbursementRefNo"));
+                Double totalAmountInSanctionRef = loanDisbursementRepository.totalAmountInSanctionRef(Long.parseLong(dMap.get("sanctionId")));
+                Double totalLimitForSanctionRef = loanDisbursementRepository.totalLimitForSanctionRef(Long.parseLong(dMap.get("sanctionId")));
                 if (totalAmountInDisbursementRef == null) {
                     totalAmountInDisbursementRef = 0.0;
-                    if (disbursementLimit < (totalAmountInDisbursementRef + loanAmountInBDT)) {
-                        return errorMessage(DISBURSEMENT_AMOUNT_EXCEED, loanDisbursement);
+                    if (disbursementLimitForUnit < (totalAmountInDisbursementRef + loanAmountInBDT)) {
+                        return errorMessage(DISBURSEMENT_AMOUNT_EXCEED_FOR_UNIT, loanDisbursement);
                     }
+                    if (totalLimitForSanctionRef < (totalAmountInSanctionRef + loanAmountInBDT)) {
+                        return errorMessage(DISBURSEMENT_AMOUNT_EXCEED_FOR_SANCTION, loanDisbursement);
+                    }
+
                 } else {
-                    if (disbursementLimit < (totalAmountInDisbursementRef + loanAmountInBDT)) {
-                        return errorMessage(DISBURSEMENT_AMOUNT_EXCEED, loanDisbursement);
+                    if (disbursementLimitForUnit < (totalAmountInDisbursementRef + loanAmountInBDT)) {
+                        return errorMessage(DISBURSEMENT_AMOUNT_EXCEED_FOR_UNIT, loanDisbursement);
+                    }
+                    if (totalLimitForSanctionRef < (totalAmountInSanctionRef + loanAmountInBDT)) {
+                        return errorMessage(DISBURSEMENT_AMOUNT_EXCEED_FOR_SANCTION, loanDisbursement);
                     }
                 }
 

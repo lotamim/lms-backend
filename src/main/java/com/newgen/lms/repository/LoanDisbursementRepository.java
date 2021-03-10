@@ -13,14 +13,26 @@ public interface LoanDisbursementRepository extends JpaRepository<LoanDisburseme
             "FROM sanction_detail AS sand\n" +
             "INNER JOIN sanction AS san\n" +
             "ON san.id = sand.sanction_id\n" +
-            "WHERE sand.sanction_id =:sanctionId AND sand.unit_id =:unitId", nativeQuery = true)
-    Double checkLoanLimit(@Param("sanctionId") Long sanctionId, @Param("unitId") Long unitId);
+            "WHERE sand.sanction_id =:sanctionId AND sand.unit_id =:unitId AND is_deleted = false", nativeQuery = true)
+    Double checkLoanLimitForUnit(@Param("sanctionId") Long sanctionId, @Param("unitId") Long unitId);
 
 
     @Query(value = "SELECT\n" +
             "SUM(loan_amount_in_bdt)\n" +
             "FROM loan_disbursement\n" +
-            "WHERE disbursement_ref_no =:disbursementRef", nativeQuery = true)
+            "WHERE disbursement_ref_no =:disbursementRef AND is_deleted = false", nativeQuery = true)
     Double totalAmountInDisbursementRef(@Param("disbursementRef") String disbursementRef);
+
+    @Query(value = "SELECT\n" +
+            "SUM(loan_amount_in_bdt)\n" +
+            "FROM loan_disbursement\n" +
+            "WHERE sanction_id =:sanctionId AND is_deleted = false", nativeQuery = true)
+    Double totalAmountInSanctionRef(@Param("sanctionId") Long sanctionId);
+
+    @Query(value = "SELECT combine_limit\n" +
+            "from sanction\n" +
+            "WHERE id =:sanctionId", nativeQuery = true)
+    Double totalLimitForSanctionRef(@Param("sanctionId") Long sanctionId);
+
 
 }
